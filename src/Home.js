@@ -12,7 +12,7 @@ function Home() {
             <div className="home__subBanner">
                 <p>Junior Developer | Cloud Enthusiastic</p>
             </div> 
-            <div className="home__content">
+            <div className="home__content" id="proyectos">
                 <div className="home_content_title">
                     <h2>Proyectos</h2>
                 </div>
