@@ -1,10 +1,10 @@
 .home__banner{
-    background-image: url('images/fondo1.jpg');
+    background-image: url('images/fondo2.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position-y: -200px;
+    background-position-y: -124px;
     height: 510px;
-    color: rgb(33, 172, 190);
+    color: rgb(255, 255, 255);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,6 +13,7 @@
 .home__banner h1{
     font-size: 4rem;
     text-shadow: 5px 6px rgb(31, 29, 29);
+    margin-top: 420px;
 }
 
 .home__subBanner{
