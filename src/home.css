@@ -1,0 +1,61 @@
+.home__banner{
+    background-image: url('images/There_is_no_place.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -150px;
+    height: 500px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home__banner h1{
+    font-size: 4rem;
+    text-shadow: 5px 6px rgb(31, 29, 29);
+}
+
+.home__subBanner{
+    background-color: teal;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.home_content{
+    padding: 0px 10%;
+    margin-top: 2rem;
+}
+
+.home_content_title h2{
+    font-size: 2rem;
+    padding: 5px;
+}
+
+.home_content_title{
+    display: flex;
+    justify-content: center;
+}
+
+.home__content_clusters{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.home__content_clusters div{
+    display: flex;
+    flex-grow: 1;
+    width: 31%;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+    background: tomato;
+    margin: 1%;
+}
+
+.home__content_clusters div a{
+    color: white;
+    text-decoration: none;
+}
+
