@@ -1,70 +1,127 @@
-# Getting Started with Create React App
+# React App Deployment with Terraform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+This project demonstrates the deployment of a React.js application on an AWS EC2 instance using Terraform for infrastructure as code. The setup provisions a complete environment, including a Virtual Private Cloud (VPC), security configurations, and the necessary software to run the application.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+#### Automated Deployment: 
+Terraform script provisions the infrastructure and deploys the React app automatically.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Custom Networking: 
+Creates a VPC with a public subnet and internet connectivity.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Security Configurations: 
+Configures security groups to allow SSH and HTTP/HTTPS access.
 
-### `npm test`
+#### React Application: 
+Deploys a pre-built React.js application from a GitHub repository.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Software Configuration: 
+Automatically installs required software (Node.js, npm, Git, Nginx) and runs the application.
 
-### `npm run build`
+## Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Infrastructure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Terraform: Infrastructure as Code tool for AWS resource provisioning.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### AWS Services:
 
-### `npm run eject`
+* EC2 (Elastic Compute Cloud)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* VPC (Virtual Private Cloud)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Subnets
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* Internet Gateway
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* Elastic IP
 
-## Learn More
+* Security Groups
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Software
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* React.js: Front-end framework for the application.
 
-### Code Splitting
+* Node.js: JavaScript runtime environment.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* npm: Package manager for Node.js.
 
-### Analyzing the Bundle Size
+* Nginx: Web server for serving the application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+* Git: Version control to clone the project.
 
-### Making a Progressive Web App
+## Prerequisites
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### AWS Account
 
-### Advanced Configuration
+Ensure you have access to an AWS account with permissions to create EC2, VPC, and related resources.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Terraform Installed
 
-### Deployment
+Download and install Terraform from the official website.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### AWS CLI Configured
 
-### `npm run build` fails to minify
+Set up the AWS CLI with your access and secret keys:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### SSH Key Pair
+
+Generate an SSH key pair or use an existing one. Ensure the public key is uploaded to AWS.
+
+## Installation and Configuration
+
+1. #### Clone the repository:
+```bash
+git clone https://github.com/MiguelM91/Web_con_react.git
+```
+2. ##### Navigate to the project directory.
+
+```bash
+cd Web_con_react
+```
+3. #### Run the deployment using Terraform:
+
+```bash
+terraform init
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
+
+```
+
+4. #### Confirm the prompt to create the resources.
+
+5. #### Access the Application
+
+* Obtain the public IP of the EC2 instance from the Terraform output or AWS Management Console.
+
+* Open a browser and navigate to:
+ ```bash
+http://<Public-IP>:3000
+```
+6. #### Cleanup
+
+When you have finished this lab and checked that everything is in order, don't forget to delete the created resources.:
+
+ ```bash
+terraform destroy
+```
+
+## Troubleshooting
+
+#### Application Not Loading: 
+Verify the security group rules and ensure the necessary ports (8081, 3000) are open.
+
+#### Permission Issues: 
+Ensure the correct SSH key pair is configured and accessible.
+
+#### Dependency Errors: 
+Check the logs in /var/log/user_data.log on the EC2 instance for any setup issues.
+
+## Author
+
+MiguelM91
