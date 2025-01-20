@@ -1,23 +1,40 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage ('Build'){
-            steps{
-                echo "Etapa en construcción"
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building the application..."
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
 
-        stage ('Test'){
-            steps{
-                echo "Etapa en construcción"
+        stage('Test') {
+            steps {
+                echo "Running tests..."
+                sh 'npm test'
             }
         }
 
-        stage ('Deploy'){
-            steps{
-                echo "Etapa en construcción"
+        stage('Deploy') {
+            steps {
+                echo "Deploying application..."
+                sshagent(['NginxServerKP']) {
+                    sh '''
+                        scp -r build/ ubuntu@3.144.123.224:/home/ubuntu/Web_con_react
+                        ssh ubuntu@3.144.123.224 'sudo systemctl restart nginx'
+
+                    '''
+                }
             }
         }
     }
-    
+    post {
+        success {
+            echo "Pipeline executed successfully!"
+        }
+        failure {
+            echo "Pipeline failed."
+        }
+    }
 }

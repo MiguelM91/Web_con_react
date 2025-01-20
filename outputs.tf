@@ -10,7 +10,7 @@ output "public_ip" {
 
 output "security_group_id" {
   description = "ID del grupo de seguridad"
-  value       = aws_security_group.ReactApp_sg.id
+  value       = var.vpc_security_group_ids
 }
 
 output "subnet_id" {

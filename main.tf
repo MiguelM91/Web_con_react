@@ -1,110 +1,110 @@
 #VPC
 
-resource "aws_vpc" "lab_vpc" {
-  cidr_block = "10.0.0.0/16"
-  tags = {
-    Name = "lab_vpc"
-  }
-}
+# resource "aws_vpc" "lab_vpc" {
+#   cidr_block = "10.0.0.0/16"
+#   tags = {
+#     Name = "lab_vpc"
+#   }
+# }
 
-#PUBLIC SUBNET
-resource "aws_subnet" "lab_public_subnet" {
-  vpc_id                  = aws_vpc.lab_vpc.id
-  cidr_block              = "10.0.1.0/24"
-  map_public_ip_on_launch = true
-  availability_zone       = "us-east-2a"
-  tags = {
-    Name = "lab_public_subnet"
-  }
-}
+# #PUBLIC SUBNET
+# resource "aws_subnet" "lab_public_subnet" {
+#   vpc_id                  = aws_vpc.lab_vpc.id
+#   cidr_block              = "10.0.1.0/24"
+#   map_public_ip_on_launch = true
+#   availability_zone       = "us-east-2a"
+#   tags = {
+#     Name = "lab_public_subnet"
+#   }
+# }
 
-#INTERNET GATEWAY
-resource "aws_internet_gateway" "lab_igw" {
-  vpc_id = aws_vpc.lab_vpc.id
-  tags = {
-    Name = "lab_igw"
-  }
-}
+# #INTERNET GATEWAY
+# resource "aws_internet_gateway" "lab_igw" {
+#   vpc_id = aws_vpc.lab_vpc.id
+#   tags = {
+#     Name = "lab_igw"
+#   }
+# }
 
-#PUBLIC ROUTE TABLE
-resource "aws_route_table" "lab_public_rt" {
-  vpc_id = aws_vpc.lab_vpc.id
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.lab_igw.id
-  }
-  tags = {
-    Name = "lab_public_rt"
-  }
-}
+# #PUBLIC ROUTE TABLE
+# resource "aws_route_table" "lab_public_rt" {
+#   vpc_id = aws_vpc.lab_vpc.id
+#   route {
+#     cidr_block = "0.0.0.0/0"
+#     gateway_id = aws_internet_gateway.lab_igw.id
+#   }
+#   tags = {
+#     Name = "lab_public_rt"
+#   }
+# }
 
-#ROUTE TABLE ASSOCIATION WITH PUBLIC SUBNET
-resource "aws_route_table_association" "public_subnet_assoc" {
-  subnet_id      = aws_subnet.lab_public_subnet.id
-  route_table_id = aws_route_table.lab_public_rt.id
-}
+# #ROUTE TABLE ASSOCIATION WITH PUBLIC SUBNET
+# resource "aws_route_table_association" "public_subnet_assoc" {
+#   subnet_id      = aws_subnet.lab_public_subnet.id
+#   route_table_id = aws_route_table.lab_public_rt.id
+# }
 
-#ELASTIC IP
-resource "aws_eip" "lab_nat_eip" {
-  depends_on = [aws_internet_gateway.lab_igw]
-}
+# #ELASTIC IP
+# resource "aws_eip" "lab_nat_eip" {
+#   depends_on = [aws_internet_gateway.lab_igw]
+# }
 
-#SECURITY GROUP
-resource "aws_security_group" "ReactApp_sg" {
-  name        = "ReactApp_sg"
-  description = "Allow SSH and HTTP"
-  vpc_id      = aws_vpc.lab_vpc.id
+# #SECURITY GROUP
+# resource "aws_security_group" "ReactApp_sg" {
+#   name        = "ReactApp_sg"
+#   description = "Allow SSH and HTTP"
+#   vpc_id      = aws_vpc.lab_vpc.id
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+#   ingress {
+#     from_port   = 22
+#     to_port     = 22
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+#   ingress {
+#     from_port   = 80
+#     to_port     = 80
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 
-  # Nueva regla para permitir el acceso al puerto 8081
-  ingress {
-    from_port   = 8081
-    to_port     = 8081
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+#   # Nueva regla para permitir el acceso al puerto 8081
+#   ingress {
+#     from_port   = 8081
+#     to_port     = 8081
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 
-  # Nueva regla para permitir el acceso al puerto 3000
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+#   # Nueva regla para permitir el acceso al puerto 3000
+#   ingress {
+#     from_port   = 3000
+#     to_port     = 3000
+#     protocol    = "tcp"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"          # -1 significa todos los protocolos
-    cidr_blocks = ["0.0.0.0/0"] # Todo el tráfico hacia cualquier IP pública
-  }
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"          # -1 significa todos los protocolos
+#     cidr_blocks = ["0.0.0.0/0"] # Todo el tráfico hacia cualquier IP pública
+#   }
 
-  tags = {
-    Name = "ReactApp-SG"
-  }
-}
+#   tags = {
+#     Name = "ReactApp-SG"
+#   }
+# }
 
 #INSTANCE
 resource "aws_instance" "ReactApp" {
   ami                         = "ami-036841078a4b68e14"
   associate_public_ip_address = true
   instance_type               = "t2.micro"
-  subnet_id                   = aws_subnet.lab_public_subnet.id
+  subnet_id                   = var.subnet_id
   key_name                    = "NginxServerKP"
-  vpc_security_group_ids      = [aws_security_group.ReactApp_sg.id]
+  vpc_security_group_ids      = [var.vpc_security_group_ids]
 
   user_data = <<-EOF
                   #!/bin/bash
