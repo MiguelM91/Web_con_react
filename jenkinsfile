@@ -3,19 +3,19 @@ pipeline{
     stages{
         stage ('Build'){
             steps{
-                echo "Etapa aun no disponible"
+                echo "Etapa en construcción"
             }
         }
 
         stage ('Test'){
             steps{
-                echo "Etapa aun no disponible"
+                echo "Etapa en construcción"
             }
         }
 
         stage ('Deploy'){
             steps{
-                echo "Etapa aun no disponible"
+                echo "Etapa en construcción"
             }
         }
     }
