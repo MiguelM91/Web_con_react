@@ -1,0 +1,23 @@
+pipeline{
+    agent any
+    stages{
+        stage ('Build'){
+            steps{
+                echo "Etapa aun no disponible"
+            }
+        }
+
+        stage ('Test'){
+            steps{
+                echo "Etapa aun no disponible"
+            }
+        }
+
+        stage ('Deploy'){
+            steps{
+                echo "Etapa aun no disponible"
+            }
+        }
+    }
+    
+}
